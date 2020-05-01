@@ -9,11 +9,10 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 // 自动以资源类，模拟缓存
 class myCache {
     // 创建缓存容器对象
-    private volatile HashMap<String, Object> ms = new HashMap<String, Object>();
+    private volatile HashMap<String, Object> ms = new HashMap<>();
 
     // 创建读写锁对象
     private ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
-//    private Lock lock = new ReentrantLock();
 
     // 写数据
     public void put(String key, Object value)
@@ -25,7 +24,7 @@ class myCache {
         {
             System.out.println(Thread.currentThread().getName() + "\t 正在写入：" + key);
             try {
-                TimeUnit.MILLISECONDS.sleep(300);
+                TimeUnit.MILLISECONDS.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -34,25 +33,29 @@ class myCache {
         }catch( Exception e) {
             e.printStackTrace();
         }finally {
-            // 写锁释放锁
+            // 释放写锁
             rwLock.writeLock().unlock();
         }
     }
 
     public void get(String key) {
-        rwLock.writeLock().lock();
+        rwLock.readLock().lock();
         try
         {
             System.out.println(Thread.currentThread().getName() + "\t 正在读取：");
             ms.get(key);
+            try {
+                TimeUnit.MILLISECONDS.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             System.out.println(Thread.currentThread().getName() + "\t 读取完成：");
         }catch( Exception e) {
             e.printStackTrace();
         }finally {
-            rwLock.writeLock().unlock();
+            rwLock.readLock().unlock();
         }
     }
-
     // 读写之后切记清除缓存
     public void clearMap()
     {
@@ -84,7 +87,7 @@ public class ReadWriteLockDemo
                 myCache.get(threadCount + "");
             }, String.valueOf(i)).start();
         }
-        // 清理缓存
+
         myCache.clearMap();
     }
 
