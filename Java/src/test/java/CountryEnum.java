@@ -7,8 +7,16 @@ public enum CountryEnum
     FIVE(5,"楚国"),SIX(6,"齐国");
 
 
-    @Getter public Integer retCode;
-    @Getter public String retMessage;
+    public Integer retCode;
+    public String retMessage;
+
+    public Integer getRetCode() {
+        return retCode;
+    }
+
+    public String getRetMessage() {
+        return retMessage;
+    }
 
     CountryEnum(Integer retCode, String retMessage) {
         this.retCode = retCode;
