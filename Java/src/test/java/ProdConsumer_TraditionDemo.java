@@ -24,7 +24,7 @@ class ShareData
     // 注意：condition()是被绑定到Lock上面的，要创建一个Lock的conditon，需要用newCondition。
     // 可以创建多个Condition条件锁。
     private Condition nullZero = lock.newCondition();
-    private Condition isZero = lock.newCondition();
+//    private Condition isZero = lock.newCondition();
 
     // 增量操作
     public void increment() throws InterruptedException
