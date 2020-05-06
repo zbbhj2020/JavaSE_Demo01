@@ -1,4 +1,4 @@
-package ProjecteDemo03.domain;
+package ProjectDemo03.domain;
 
 /**
  * @author: zbb
