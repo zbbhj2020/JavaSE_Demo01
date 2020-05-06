@@ -1,3 +1,5 @@
+package TestDemo;
+
 import java.util.concurrent.TimeUnit;
 
 // 资源类
@@ -26,6 +28,7 @@ class HoldLockThread implements Runnable
         }
     }
 }
+
 public class DeadLockDemo
 {
     public static void main(String[] args)
